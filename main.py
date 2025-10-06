@@ -30,7 +30,8 @@ parser.add_argument(
 parser.add_argument(
     "--beta", "-b", 
     type=float, 
-    default=0.025
+    default=0.025,
+    help="Model parameter 'beta'"
 )
 
 parser.add_argument(
