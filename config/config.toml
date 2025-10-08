@@ -4,4 +4,3 @@ beta = 0.025
 gamma = 0.01
 n_agents = 100
 sim_time = 365
-config_path = "simulation_config"
