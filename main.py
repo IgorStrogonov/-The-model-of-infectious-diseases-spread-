@@ -11,55 +11,60 @@ from models.sir import SIRBasicAgent
 
 import argparse
 
+try:
+    import tomlib
+except ImportError:
+    import tomli as tomlib
+
 parser = argparse.ArgumentParser()
 
 parser.add_argument(
     "--output_path", "-o", 
-    type=str, 
-    default="simulation_data", 
-    help="Simulation output folder"
+    type = str, 
+    default = "simulation_data", 
+    help = "Simulation output folder"
 )
 
 parser.add_argument(
     "--random_seed", "-r",
-    type=int, 
-    default=42, 
-    help="Random seed"
+    type = int, 
+    default = 42, 
+    help = "Random seed"
 )
 
 parser.add_argument(
     "--beta", "-b", 
-    type=float, 
-    default=0.025,
-    help="Model parameter 'beta'"
+    type = float, 
+    default = 0.025,
+    help = "Model parameter 'beta'"
 )
 
 parser.add_argument(
     "--gamma", "-g", 
-    type=float, 
-    default=0.01,
-    help="Model parameter 'gamma'"
+    type = float, 
+    default = 0.01,
+    help = "Model parameter 'gamma'"
 )
 
 parser.add_argument(
     "--n_agents", "-n", 
-    type=int, 
-    default=100,
-    help="Agent count"
+    type = int, 
+    default = 100,
+    help = "Agent count"
 )
 
 parser.add_argument(
     "--sim_time", "-t", 
-    type=int, 
-    default=365,
-    help="Sim duration, units"
+    type = int, 
+    default = 365,
+    help = "Sim duration, units"
 )
 
 parser.add_argument(
     "--config_path", "-c", 
-    type=str, 
-    default="simulation_config",
-    help="Config file path"
+    type = str, 
+    default = "simulation_config",
+    help = "Config file path"
 )
 
 args = parser.parse_args()
@@ -70,6 +75,12 @@ MSK = zoneinfo.ZoneInfo("Europe/Moscow")
 def msk_now_str():
     return datetime.now(MSK).strftime("%Y-%m-%d-%H%M%SZ")
 
+def load_config(path):
+    with open(path, "rb") as f:
+        conf = tomlib.load(f)
+    return conf
+
+config = load_config(args.config_path)
 
 RANDOM_SEED = args.random_seed
 BETA = args.beta
